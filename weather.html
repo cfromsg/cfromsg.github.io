@@ -105,15 +105,32 @@
 
         /* Sun */
         .sun {
+            -webkit-transform-origin: 50% 50%;
             transform-origin: 50% 50%;
+            -webkit-animation: rotate 24s linear infinite;
             animation: rotate 24s linear infinite;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: transform;
         }
         .sun circle {
             fill: #ffd700;
+            -webkit-filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
             filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
         }
         .sun-rays {
+            -webkit-transform-origin: 50% 50%;
             transform-origin: 50% 50%;
+        }
+
+        @-webkit-keyframes rotate {
+            from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+            to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+        }
+
+        @keyframes rotate {
+            from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
+            to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
         }
 
         /* Cloud */
@@ -130,43 +147,59 @@
         .cloud {
             fill: #e1e1e1;
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            -webkit-animation: float 3s ease-in-out infinite;
             animation: float 3s ease-in-out infinite;
+            -webkit-transform-origin: center center;
             transform-origin: center center;
+            -webkit-transform-box: fill-box;
             transform-box: fill-box;
+            -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             position: relative;
             z-index: 2;
+            will-change: transform;
         }
 
         /* Rain */
         .rain-drop {
             fill: #00a8ff;
+            -webkit-animation: rain 1.5s linear infinite;
             animation: rain 1.5s linear infinite;
+            will-change: transform, opacity;
         }
 
-        .rain-drop:nth-child(2) { animation-delay: 0.5s; }
-        .rain-drop:nth-child(3) { animation-delay: 1s; }
+        .rain-drop:nth-child(2) { -webkit-animation-delay: 0.5s; animation-delay: 0.5s; }
+        .rain-drop:nth-child(3) { -webkit-animation-delay: 1s; animation-delay: 1s; }
 
         /* Snow */
         .snow-flake {
             fill: #fff;
+            -webkit-animation: snow 3s linear infinite;
             animation: snow 3s linear infinite;
+            will-change: transform, opacity;
         }
 
-        .snow-flake:nth-child(2) { animation-delay: 1s; }
-        .snow-flake:nth-child(3) { animation-delay: 2s; }
+        .snow-flake:nth-child(2) { -webkit-animation-delay: 1s; animation-delay: 1s; }
+        .snow-flake:nth-child(3) { -webkit-animation-delay: 2s; animation-delay: 2s; }
 
         /* Thunder */
         .lightning {
             fill: #ffd700;
+            -webkit-filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            -webkit-animation: flash 2s ease-in-out infinite;
             animation: flash 2s ease-in-out infinite;
+            will-change: opacity;
         }
 
         /* Mist */
         .mist {
             fill: #b0b0b0;
+            -webkit-animation: mist 3s ease-in-out infinite;
             animation: mist 3s ease-in-out infinite;
+            will-change: transform, opacity;
         }
 
         /* Animations */
@@ -175,22 +208,45 @@
             to { transform: rotate(360deg); }
         }
 
+        @-webkit-keyframes float {
+            0% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
+            50% { -webkit-transform: translateY(-3px) scale(1.02); transform: translateY(-3px) scale(1.02); }
+            100% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
+        }
+
         @keyframes float {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-3px) scale(1.02); }
-            100% { transform: translateY(0) scale(1); }
+            0% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
+            50% { -webkit-transform: translateY(-3px) scale(1.02); transform: translateY(-3px) scale(1.02); }
+            100% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
+        }
+
+        @-webkit-keyframes rain {
+            0% { -webkit-transform: translateY(-10px); transform: translateY(-10px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { -webkit-transform: translateY(10px); transform: translateY(10px); opacity: 0; }
         }
 
         @keyframes rain {
-            0% { transform: translateY(-10px); opacity: 0; }
+            0% { -webkit-transform: translateY(-10px); transform: translateY(-10px); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(10px); opacity: 0; }
+            100% { -webkit-transform: translateY(10px); transform: translateY(10px); opacity: 0; }
+        }
+
+        @-webkit-keyframes snow {
+            0% { -webkit-transform: translateY(-10px) rotate(0deg); transform: translateY(-10px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { -webkit-transform: translateY(10px) rotate(360deg); transform: translateY(10px) rotate(360deg); opacity: 0; }
         }
 
         @keyframes snow {
-            0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+            0% { -webkit-transform: translateY(-10px) rotate(0deg); transform: translateY(-10px) rotate(0deg); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(10px) rotate(360deg); opacity: 0; }
+            100% { -webkit-transform: translateY(10px) rotate(360deg); transform: translateY(10px) rotate(360deg); opacity: 0; }
+        }
+
+        @-webkit-keyframes flash {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
 
         @keyframes flash {
@@ -198,9 +254,14 @@
             50% { opacity: 1; }
         }
 
+        @-webkit-keyframes mist {
+            0%, 100% { opacity: 0.5; -webkit-transform: translateX(-5px); transform: translateX(-5px); }
+            50% { opacity: 0.8; -webkit-transform: translateX(5px); transform: translateX(5px); }
+        }
+
         @keyframes mist {
-            0%, 100% { opacity: 0.5; transform: translateX(-5px); }
-            50% { opacity: 0.8; transform: translateX(5px); }
+            0%, 100% { opacity: 0.5; -webkit-transform: translateX(-5px); transform: translateX(-5px); }
+            50% { opacity: 0.8; -webkit-transform: translateX(5px); transform: translateX(5px); }
         }
 
         .current-weather {
@@ -225,6 +286,13 @@
 
         .condition {
             font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .temp-range {
+            font-size: 1rem;
             color: var(--text-secondary);
             margin-bottom: 15px;
             text-align: center;
@@ -301,7 +369,17 @@
         }
 
         .loading {
+            -webkit-animation: pulse 1.5s infinite;
             animation: pulse 1.5s infinite;
+            will-change: opacity;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        @-webkit-keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         @keyframes pulse {
@@ -477,6 +555,7 @@
                     <div class="temperature">--°C</div>
                    <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
                    <div class="condition">Loading...</div>
+                   <div class="temp-range">--</div>
                </div>
                <div class="forecast">
                     <h3>12-Hour Forecast</h3>
@@ -494,6 +573,7 @@
                     <div class="temperature">--°C</div>
                     <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
                     <div class="condition">Loading...</div>
+                    <div class="temp-range">--</div>
                 </div>
                 <div class="forecast">
                     <h3>12-Hour Forecast</h3>
@@ -512,8 +592,8 @@
         // Weather configuration
         const CONFIG = {
             CITIES: {
-                LONDON: { name: 'London,UK', lat: 51.5074, lon: -0.1278 },
-                SINGAPORE: { name: 'Singapore,SG', lat: 1.3521, lon: 103.8198 }
+                LONDON: { name: 'London,UK', lat: 51.5027, lon: -0.1884 },
+                SINGAPORE: { name: 'Singapore,SG', lat: 1.2933, lon: 103.8271 }
             },
             REFRESH_INTERVAL: 1800000, // 30 minutes
             CACHE_DURATION: 1800000, // 30 minutes
@@ -664,12 +744,14 @@
                 temp: card.querySelector('.temperature'),
                 condition: card.querySelector('.condition'),
                 container: card.querySelector('.current-weather'),
-                icon: card.querySelector('.weather-icon')
+                icon: card.querySelector('.weather-icon'),
+                tempRange: card.querySelector('.temp-range')
             };
 
             // Update temperature and condition
             elements.temp.textContent = `${Math.round(data.main.temp)}°C`;
             elements.condition.textContent = capitalizeWords(data.weather[0].description);
+            elements.tempRange.textContent = `H:${Math.round(data.main.temp_max)}°C L:${Math.round(data.main.temp_min)}°C`;
 
             // Update weather icon
             const iconType = getWeatherIcon(data.weather[0].id);
