@@ -206,7 +206,11 @@
 
         // Error display function
         function showError(cityName, error) {
-            const card = document.querySelector(`.weather-card:has(h2:contains('${cityName}'))`);
+            const card = Array.from(document.querySelectorAll('.weather-card'))
+                .find(card => {
+                    const heading = card.querySelector('h2');
+                    return heading && heading.textContent.includes(cityName);
+                });
             if (!card) return;
 
             const elements = {
@@ -293,7 +297,11 @@
 
         // Weather display functions
         function updateCurrentWeather(cityName, data) {
-            const card = document.querySelector(`.weather-card:has(h2:contains('${cityName}'))`);
+            const card = Array.from(document.querySelectorAll('.weather-card'))
+                .find(card => {
+                    const heading = card.querySelector('h2');
+                    return heading && heading.textContent.includes(cityName);
+                });
             if (!card) return;
 
             const tempElement = card.querySelector('.temperature');
