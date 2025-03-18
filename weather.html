@@ -201,7 +201,7 @@
             CACHE_DURATION: 1800000, // 30 minutes
             API_BASE_URL: location.hostname === 'localhost' || location.hostname === '127.0.0.1'
                 ? 'http://localhost:3000/api'
-                : 'https://weather-proxy-kdl8.onrender.com' // Update this with your deployed API URL
+                : 'https://weather-proxy-kdl8.onrender.com/api' // Added /api prefix for production URL
         };
 
         // Error display function
