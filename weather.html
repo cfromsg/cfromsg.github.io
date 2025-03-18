@@ -107,11 +107,13 @@
         .sun {
             -webkit-transform-origin: 50% 50%;
             transform-origin: 50% 50%;
-            -webkit-animation: rotate 24s linear infinite;
-            animation: rotate 24s linear infinite;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            will-change: transform;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         .sun circle {
             fill: #ffd700;
@@ -142,127 +144,74 @@
             padding: 10px;
             overflow: visible;
             z-index: 2;
-        }
-
-        .cloud {
-            fill: #e1e1e1;
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
-            -webkit-animation: float 3s ease-in-out infinite;
-            animation: float 3s ease-in-out infinite;
-            -webkit-transform-origin: center center;
-            transform-origin: center center;
-            -webkit-transform-box: fill-box;
-            transform-box: fill-box;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
             -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            position: relative;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+        }
+
+        .cloud {
+            fill: #e1e1e1;
+            -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 2;
-            will-change: transform;
         }
 
         /* Rain */
         .rain-drop {
             fill: #00a8ff;
-            -webkit-animation: rain 1.5s linear infinite;
-            animation: rain 1.5s linear infinite;
-            will-change: transform, opacity;
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+            opacity: 0;
         }
-
-        .rain-drop:nth-child(2) { -webkit-animation-delay: 0.5s; animation-delay: 0.5s; }
-        .rain-drop:nth-child(3) { -webkit-animation-delay: 1s; animation-delay: 1s; }
 
         /* Snow */
         .snow-flake {
             fill: #fff;
-            -webkit-animation: snow 3s linear infinite;
-            animation: snow 3s linear infinite;
-            will-change: transform, opacity;
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+            opacity: 0;
         }
-
-        .snow-flake:nth-child(2) { -webkit-animation-delay: 1s; animation-delay: 1s; }
-        .snow-flake:nth-child(3) { -webkit-animation-delay: 2s; animation-delay: 2s; }
 
         /* Thunder */
         .lightning {
             fill: #ffd700;
             -webkit-filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-            -webkit-animation: flash 2s ease-in-out infinite;
-            animation: flash 2s ease-in-out infinite;
-            will-change: opacity;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+            opacity: 0.3;
         }
 
         /* Mist */
         .mist {
             fill: #b0b0b0;
-            -webkit-animation: mist 3s ease-in-out infinite;
-            animation: mist 3s ease-in-out infinite;
-            will-change: transform, opacity;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+            opacity: 0.5;
         }
 
-        /* Animations */
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @-webkit-keyframes float {
-            0% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
-            50% { -webkit-transform: translateY(-3px) scale(1.02); transform: translateY(-3px) scale(1.02); }
-            100% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
-        }
-
-        @keyframes float {
-            0% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
-            50% { -webkit-transform: translateY(-3px) scale(1.02); transform: translateY(-3px) scale(1.02); }
-            100% { -webkit-transform: translateY(0) scale(1); transform: translateY(0) scale(1); }
-        }
-
-        @-webkit-keyframes rain {
-            0% { -webkit-transform: translateY(-10px); transform: translateY(-10px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { -webkit-transform: translateY(10px); transform: translateY(10px); opacity: 0; }
-        }
-
-        @keyframes rain {
-            0% { -webkit-transform: translateY(-10px); transform: translateY(-10px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { -webkit-transform: translateY(10px); transform: translateY(10px); opacity: 0; }
-        }
-
-        @-webkit-keyframes snow {
-            0% { -webkit-transform: translateY(-10px) rotate(0deg); transform: translateY(-10px) rotate(0deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { -webkit-transform: translateY(10px) rotate(360deg); transform: translateY(10px) rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes snow {
-            0% { -webkit-transform: translateY(-10px) rotate(0deg); transform: translateY(-10px) rotate(0deg); opacity: 0; }
-            50% { opacity: 1; }
-            100% { -webkit-transform: translateY(10px) rotate(360deg); transform: translateY(10px) rotate(360deg); opacity: 0; }
-        }
-
-        @-webkit-keyframes flash {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes flash {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        @-webkit-keyframes mist {
-            0%, 100% { opacity: 0.5; -webkit-transform: translateX(-5px); transform: translateX(-5px); }
-            50% { opacity: 0.8; -webkit-transform: translateX(5px); transform: translateX(5px); }
-        }
-
-        @keyframes mist {
-            0%, 100% { opacity: 0.5; -webkit-transform: translateX(-5px); transform: translateX(-5px); }
-            50% { opacity: 0.8; -webkit-transform: translateX(5px); transform: translateX(5px); }
-        }
 
         .current-weather {
             text-align: center;
@@ -371,21 +320,24 @@
         .loading {
             -webkit-animation: pulse 1.5s infinite;
             animation: pulse 1.5s infinite;
-            will-change: opacity;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
         }
 
         @-webkit-keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+            0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+            50% { opacity: 0.5; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+            100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
         }
 
         @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+            0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+            50% { opacity: 0.5; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+            100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
         }
 
         @media (max-width: 768px) {
@@ -898,7 +850,201 @@
         // Initialize debug panel
         document.addEventListener('DOMContentLoaded', () => {
             initDebugPanel();
+            initWeatherAnimations();
         });
+
+        // Weather Animations
+        function initWeatherAnimations() {
+            let isAnimating = false;
+            
+            // Animation states
+            const state = {
+                sunRotation: 0,
+                cloudY: 0,
+                rainDrops: [
+                    { y: -10, opacity: 0 },
+                    { y: -10, opacity: 0 },
+                    { y: -10, opacity: 0 }
+                ],
+                snowFlakes: [
+                    { y: -10, rotation: 0, opacity: 0 },
+                    { y: -10, rotation: 120, opacity: 0 },
+                    { y: -10, rotation: 240, opacity: 0 }
+                ],
+                flash: { opacity: 0.3 },
+                mist: { x: -5, opacity: 0.5 }
+            };
+
+            // Initialize all elements with hardware-accelerated transforms
+            function initializeElements() {
+                document.querySelectorAll('.sun').forEach(sun => {
+                    sun.style.transform = 'translate3d(0,0,0)';
+                    sun.style.webkitTransform = 'translate3d(0,0,0)';
+                });
+                document.querySelectorAll('.cloud').forEach(cloud => {
+                    cloud.style.transform = 'translate3d(0,0,0)';
+                    cloud.style.webkitTransform = 'translate3d(0,0,0)';
+                });
+                document.querySelectorAll('.rain-drop').forEach(drop => {
+                    drop.style.transform = 'translate3d(0,-10px,0)';
+                    drop.style.webkitTransform = 'translate3d(0,-10px,0)';
+                    drop.style.opacity = '0';
+                });
+                document.querySelectorAll('.snow-flake').forEach(flake => {
+                    flake.style.transform = 'translate3d(0,-10px,0)';
+                    flake.style.webkitTransform = 'translate3d(0,-10px,0)';
+                    flake.style.opacity = '0';
+                });
+                document.querySelectorAll('.lightning').forEach(lightning => {
+                    lightning.style.transform = 'translate3d(0,0,0)';
+                    lightning.style.webkitTransform = 'translate3d(0,0,0)';
+                    lightning.style.opacity = '0.3';
+                });
+                document.querySelectorAll('.mist').forEach(mist => {
+                    mist.style.transform = 'translate3d(-5px,0,0)';
+                    mist.style.webkitTransform = 'translate3d(-5px,0,0)';
+                    mist.style.opacity = '0.5';
+                });
+            }
+
+            function updateSun(timestamp) {
+                const suns = document.querySelectorAll('.sun');
+                suns.forEach(sun => {
+                    state.sunRotation = (timestamp * 0.01) % 360;
+                    const transform = `translate3d(0,0,0) rotate(${state.sunRotation}deg)`;
+                    sun.style.webkitTransform = transform;
+                    sun.style.transform = transform;
+                });
+            }
+
+            function updateCloud(timestamp) {
+                const clouds = document.querySelectorAll('.cloud');
+                const amplitude = 3;
+                const frequency = 0.002;
+                clouds.forEach(cloud => {
+                    state.cloudY = Math.sin(timestamp * frequency) * amplitude;
+                    const transform = `translate3d(0,${state.cloudY}px,0)`;
+                    cloud.style.webkitTransform = transform;
+                    cloud.style.transform = transform;
+                });
+            }
+
+            function updateRain(timestamp) {
+                const rainGroups = document.querySelectorAll('.rain-drops');
+                rainGroups.forEach(group => {
+                    const drops = group.querySelectorAll('.rain-drop');
+                    drops.forEach((drop, index) => {
+                        let dropState = state.rainDrops[index];
+                        dropState.y += Math.min(2, (16 / (timestamp % 16 + 1)));
+                        dropState.opacity = dropState.y > -5 && dropState.y < 15 ? 1 : 0;
+                        
+                        if (dropState.y > 20) dropState.y = -10;
+
+                        const transform = `translate3d(0,${dropState.y}px,0)`;
+                        drop.style.webkitTransform = transform;
+                        drop.style.transform = transform;
+                        drop.style.opacity = dropState.opacity;
+                    });
+                });
+            }
+
+            function updateSnow(timestamp) {
+                const snowGroups = document.querySelectorAll('.snow-flakes');
+                snowGroups.forEach(group => {
+                    const flakes = group.querySelectorAll('.snow-flake');
+                    flakes.forEach((flake, index) => {
+                        let flakeState = state.snowFlakes[index];
+                        flakeState.y += Math.min(1, (8 / (timestamp % 8 + 1)));
+                        flakeState.rotation = (timestamp * 0.05 + (index * 120)) % 360;
+                        flakeState.opacity = flakeState.y > -5 && flakeState.y < 15 ? 1 : 0;
+
+                        if (flakeState.y > 20) flakeState.y = -10;
+
+                        const transform = `translate3d(0,${flakeState.y}px,0) rotate(${flakeState.rotation}deg)`;
+                        flake.style.webkitTransform = transform;
+                        flake.style.transform = transform;
+                        flake.style.opacity = flakeState.opacity;
+                    });
+                });
+            }
+
+            function updateFlash(timestamp) {
+                const lightnings = document.querySelectorAll('.lightning');
+                lightnings.forEach(lightning => {
+                    state.flash.opacity = 0.3 + (Math.sin(timestamp * 0.002) * 0.7);
+                    const transform = 'translate3d(0,0,0)';
+                    lightning.style.webkitTransform = transform;
+                    lightning.style.transform = transform;
+                    lightning.style.opacity = state.flash.opacity;
+                });
+            }
+
+            function updateMist(timestamp) {
+                const mists = document.querySelectorAll('.mist');
+                mists.forEach(mist => {
+                    state.mist.x = Math.sin(timestamp * 0.001) * 5;
+                    state.mist.opacity = 0.5 + (Math.sin(timestamp * 0.001) * 0.3);
+                    const transform = `translate3d(${state.mist.x}px,0,0)`;
+                    mist.style.webkitTransform = transform;
+                    mist.style.transform = transform;
+                    mist.style.opacity = state.mist.opacity;
+                });
+            }
+
+            let lastTime = 0;
+            const interval = 1000 / 60; // Target 60fps
+
+            // Start animation function with proper state management
+            function startAnimation() {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                function animate(timestamp) {
+                    if (!isAnimating) return;
+
+                    if (timestamp - lastTime >= interval) {
+                        updateSun(timestamp);
+                        updateCloud(timestamp);
+                        updateRain(timestamp);
+                        updateSnow(timestamp);
+                        updateFlash(timestamp);
+                        updateMist(timestamp);
+                        lastTime = timestamp;
+                    }
+                    requestAnimationFrame(animate);
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            // Initialize and start animations
+            initializeElements();
+
+            // Handle animation starts for different scenarios
+            document.addEventListener('touchstart', () => {
+                if (!isAnimating) startAnimation();
+            }, { passive: true });
+
+            // Start animation on page show (handles back/forward cache)
+            window.addEventListener('pageshow', (event) => {
+                if (event.persisted) {
+                    isAnimating = false;
+                }
+                startAnimation();
+            });
+
+            // Handle visibility changes
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    isAnimating = false;
+                } else {
+                    startAnimation();
+                }
+            });
+
+            // Initial animation start
+            startAnimation();
+        }
     </script>
 </body>
 </html>

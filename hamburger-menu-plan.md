@@ -83,9 +83,18 @@ flowchart TB
        * 7-day forecast overview
 
    - **Data Management**
-     - Implement caching to minimize API calls
-     - Handle offline scenarios
-     - Implement periodic refresh
+     - Implemented dual-layer caching strategy:
+       * Server-side in-memory cache using Map (30-minute duration)
+       * Client-side local storage cache (30-minute duration)
+     - Cache management features:
+       * Unique cache keys based on endpoint and coordinates
+       * Automatic cache invalidation after expiration
+       * Hourly cleanup of expired server cache entries
+       * Cache hit/miss logging for monitoring
+     - Error handling and reliability:
+       * Graceful fallback to cached data when available
+       * Clear error messages for API failures
+       * Consistent cache duration across client and server
 
 ## Technical Specifications
 
