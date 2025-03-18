@@ -256,6 +256,7 @@
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            width: 100%;
         }
 
         .forecast h3 {
@@ -271,8 +272,9 @@
             gap: 12px;
             text-align: center;
             margin: 0 auto;
-            max-width: 100%;
+            width: 100%;
             justify-content: center;
+            box-sizing: border-box;
         }
 
         .forecast-item {
@@ -334,6 +336,14 @@
             backface-visibility: hidden;
             -webkit-perspective: 1000px;
             perspective: 1000px;
+            width: 100%;
+        }
+
+        #london-12h-forecast,
+        #london-7d-forecast,
+        #singapore-12h-forecast,
+        #singapore-7d-forecast {
+            width: 100%;
         }
 
         @-webkit-keyframes pulse {
