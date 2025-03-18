@@ -541,9 +541,10 @@
                 <h2>London Weather</h2>
                 <div class="current-weather loading">
                     <div class="temperature">--°C</div>
-                   <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
-                   <div class="condition">Loading...</div>
-                   <div class="temp-range">--</div>
+                    <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
+                    <div class="condition">Loading...</div>
+                    <div class="temp-range">--</div>
+                    <div class="last-updated" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px;">Last updated: --</div>
                </div>
                <div class="forecast">
                     <h3>12-Hour Forecast</h3>
@@ -562,6 +563,7 @@
                     <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
                     <div class="condition">Loading...</div>
                     <div class="temp-range">--</div>
+                    <div class="last-updated" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px;">Last updated: --</div>
                 </div>
                 <div class="forecast">
                     <h3>12-Hour Forecast</h3>
@@ -835,13 +837,30 @@
                 condition: card.querySelector('.condition'),
                 container: card.querySelector('.current-weather'),
                 icon: card.querySelector('.weather-icon'),
-                tempRange: card.querySelector('.temp-range')
+                tempRange: card.querySelector('.temp-range'),
+                lastUpdated: card.querySelector('.last-updated')
+            };
+
+            // Get timezone based on city
+            const timezone = cityName.includes('London') ? 'Europe/London' : 'Asia/Singapore';
+            const timeOptions = {
+                timeZone: timezone,
+                hour12: true,
+                hour: 'numeric',
+                minute: 'numeric',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
             };
 
             // Update temperature and condition
             elements.temp.textContent = `${Math.round(data.main.temp)}°C`;
             elements.condition.textContent = capitalizeWords(data.weather[0].description);
             elements.tempRange.textContent = `H:${Math.round(data.main.temp_max)}°C L:${Math.round(data.main.temp_min)}°C`;
+
+            // Update last updated timestamp
+            const now = new Date();
+            elements.lastUpdated.textContent = `Last updated: ${now.toLocaleString('en-US', timeOptions)}`;
 
             // Update weather icon
             const iconType = getWeatherIcon(data.weather[0].id);
