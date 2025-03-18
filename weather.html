@@ -113,6 +113,63 @@
             margin: 0 0 15px 0;
             color: var(--text-secondary);
             font-size: 1rem;
+            text-align: center;
+        }
+
+        .forecast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 12px;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 100%;
+        }
+
+        .forecast-item {
+            padding: 12px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .forecast-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .forecast-date {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-secondary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+
+        .forecast-temp {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+
+        .forecast-condition {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .loading {
@@ -296,6 +353,14 @@
         }
 
         // Weather display functions
+        // Utility function to capitalize each word
+        function capitalizeWords(str) {
+            return str.split(' ').map(word =>
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+        }
+
+        // Centralized weather display function
         function updateCurrentWeather(cityName, data) {
             const card = Array.from(document.querySelectorAll('.weather-card'))
                 .find(card => {
@@ -304,13 +369,15 @@
                 });
             if (!card) return;
 
-            const tempElement = card.querySelector('.temperature');
-            const conditionElement = card.querySelector('.condition');
+            const elements = {
+                temp: card.querySelector('.temperature'),
+                condition: card.querySelector('.condition'),
+                container: card.querySelector('.current-weather')
+            };
 
-            tempElement.textContent = `${Math.round(data.main.temp)}°C`;
-            conditionElement.textContent = data.weather[0].description;
-
-            card.querySelector('.current-weather').classList.remove('loading');
+            elements.temp.textContent = `${Math.round(data.main.temp)}°C`;
+            elements.condition.textContent = capitalizeWords(data.weather[0].description);
+            elements.container.classList.remove('loading');
         }
 
         function updateForecast(cityName, data, type) {
@@ -318,17 +385,52 @@
             const forecastElement = document.getElementById(forecastId);
             if (!forecastElement) return;
 
-            // Process forecast data and update the UI
-            // Implementation will vary based on the data structure and requirements
-            // This is a simplified example
-            const forecasts = data.list.slice(0, type === '12h' ? 4 : 7)
-                .map(item => {
+            let forecastItems;
+            if (type === '12h') {
+                // 12-hour forecast: Show next 4 entries (12 hours with 3-hour intervals)
+                forecastItems = data.list.slice(0, 4)
+                    .map(item => {
+                        const date = new Date(item.dt * 1000);
+                        const hour = date.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true });
+                        return `
+                            <div class="forecast-item">
+                                <div class="forecast-date">${hour}</div>
+                                <div class="forecast-temp">${Math.round(item.main.temp)}°C</div>
+                                <div class="forecast-condition">${capitalizeWords(item.weather[0].description)}</div>
+                            </div>
+                        `;
+                    });
+            } else {
+                // 7-day forecast: Group by day and take first entry of each day
+                const dailyForecasts = new Map();
+                data.list.forEach(item => {
                     const date = new Date(item.dt * 1000);
-                    return `${date.toLocaleDateString()}: ${Math.round(item.main.temp)}°C`;
-                })
-                .join('<br>');
+                    const dayKey = date.toISOString().split('T')[0];
+                    if (!dailyForecasts.has(dayKey)) {
+                        dailyForecasts.set(dayKey, item);
+                    }
+                });
 
-            forecastElement.innerHTML = forecasts;
+                forecastItems = Array.from(dailyForecasts.entries())
+                    .slice(0, 7)
+                    .map(([_, item]) => {
+                        const date = new Date(item.dt * 1000);
+                        const formattedDate = date.toLocaleDateString('en-US', {
+                            weekday: 'short',
+                            day: '2-digit',
+                            month: '2-digit'
+                        });
+                        return `
+                            <div class="forecast-item">
+                                <div class="forecast-date">${formattedDate}</div>
+                                <div class="forecast-temp">${Math.round(item.main.temp)}°C</div>
+                                <div class="forecast-condition">${capitalizeWords(item.weather[0].description)}</div>
+                            </div>
+                        `;
+                    });
+            }
+
+            forecastElement.innerHTML = `<div class="forecast-grid">${forecastItems.join('')}</div>`;
             forecastElement.classList.remove('loading');
         }
 
