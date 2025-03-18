@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://cdn.jsdelivr.net;">
+    <title>SG/UK Forex & Time</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --accent-primary: #6c5ce7;
+            --accent-secondary: #00cec9;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --card-bg: #252525;
+            --input-bg: #333333;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            background-image: radial-gradient(circle at 20% 20%, #202040 0%, transparent 30%),
+                             radial-gradient(circle at 80% 80%, #202030 0%, transparent 30%);
+        }
+        
+        .container {
+            max-width: 750px;
+            width: 90%;
+            margin: 20px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .clock-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            gap: 40px;
+        }
+        
+        .clock-container {
+            margin-bottom: 40px;
+        }
+        
+        .clock {
+            flex: 1;
+            padding: 24px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .clock:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .clock::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .clock h2 {
+            margin-top: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 2rem;
+        }
+        
+        #sgt-time, #london-time {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+        
+        .forex {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .forex::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .forex h2 {
+            margin-top: 0;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .converter {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        input {
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            width: 100%;
+            transition: var(--transition);
+            outline: none;
+        }
+        
+        input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+        }
+        
+        input:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .converter span {
+            font-size: 1.7rem;
+            color: var(--accent-primary);
+            padding: 0 10px;
+        }
+        
+        .rate {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 1.3rem;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Loading animation */
+        .loading {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .clock-container {
+                flex-direction: column;
+            }
+            
+            .container {
+                padding: 25px;
+            }
+        }
+        /* Screen reader only class */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Error state styles */
+        .input-error {
+            border-color: #ff4757 !important;
+            box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2);
+        }
+
+        .error-message {
+           color: #ff4757;
+           font-size: 0.9rem;
+           margin-top: 5px;
+       }
+
+       /* Rates container styles */
+       .rates-container {
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+           align-items: center;
+       }
+
+       /* Offline mode styles */
+       .offline {
+           color: #ffa502 !important;
+           border: 1px solid #ffa502;
+       }
+
+       .offline::before {
+           content: '📡 ';
+           margin-right: 5px;
+       }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="clock-container">
+            <div class="clock">
+                <h2>Singapore</h2>
+                <div id="sgt-time"></div>
+            </div>
+            <div class="clock">
+                <h2>London</h2>
+                <div id="london-time"></div>
+            </div>
+        </div>
+
+        <div class="forex">
+            <h2>SGD/GBP Converter</h2>
+            <div class="converter">
+                <input
+                    type="number"
+                    id="sgd"
+                    placeholder="SGD"
+                    step="0.01"
+                    min="0"
+                    max="1000000"
+                    aria-label="Amount in Singapore Dollars"
+                    aria-describedby="sgd-help"
+                    disabled
+                >
+                <span role="img" aria-label="Convert between currencies">↔</span>
+                <input
+                    type="number"
+                    id="gbp"
+                    placeholder="GBP"
+                    step="0.01"
+                    min="0"
+                    max="1000000"
+                    aria-label="Amount in British Pounds"
+                    aria-describedby="gbp-help"
+                    disabled
+                >
+                <div id="sgd-help" class="sr-only">Enter amount in Singapore Dollars to convert to British Pounds</div>
+                <div id="gbp-help" class="sr-only">Enter amount in British Pounds to convert to Singapore Dollars</div>
+            </div>
+            <div class="rates-container">
+                <div class="rate loading" id="exchange-rate">Loading latest rates...</div>
+                <div class="rate loading" id="exchange-rate-inverse">Loading latest rates...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            API_URL: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/sgd.json',
+            MAX_RETRIES: 3,
+            RETRY_DELAY: 1000,
+            REFRESH_INTERVAL: 3600000, // 1 hour
+            CACHE_KEY: 'forex_rate_cache',
+            CACHE_DURATION: 3600000 * 24 * 7, // 1 week
+            MAX_AMOUNT: 1000000,
+            FALLBACK_RATE: 0.5912, // Default SGD to GBP rate if offline
+            OFFLINE_MODE: false
+        };
+
+        // Cache management
+        function getCachedRate() {
+            const cached = localStorage.getItem(CONFIG.CACHE_KEY);
+            if (!cached) return null;
+            
+            const { rate, timestamp } = JSON.parse(cached);
+            if (Date.now() - timestamp > CONFIG.CACHE_DURATION) {
+                localStorage.removeItem(CONFIG.CACHE_KEY);
+                return null;
+            }
+            return rate;
+        }
+
+        function setCachedRate(rate) {
+            localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify({
+                rate,
+                timestamp: Date.now()
+            }));
+        }
+
+        // Input validation
+        function validateAmount(value, element) {
+            const amount = parseFloat(value);
+            if (isNaN(amount) || amount < 0) {
+                element.classList.add('input-error');
+                return false;
+            }
+            if (amount > CONFIG.MAX_AMOUNT) {
+                element.classList.add('input-error');
+                return false;
+            }
+            element.classList.remove('input-error');
+            return true;
+        }
+
+        // Time display function
+        function updateClocks() {
+            try {
+                const options = {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                };
+
+                const now = new Date();
+                
+                const sgtTime = document.getElementById('sgt-time');
+                const londonTime = document.getElementById('london-time');
+
+                if (sgtTime) {
+                    sgtTime.textContent = now.toLocaleTimeString('en-SG', {
+                        ...options,
+                        timeZone: 'Asia/Singapore'
+                    });
+                }
+
+                if (londonTime) {
+                    londonTime.textContent = now.toLocaleTimeString('en-GB', {
+                        ...options,
+                        timeZone: 'Europe/London'
+                    });
+                }
+            } catch (error) {
+                console.error('Error updating clocks:', error);
+            }
+        }
+
+        // Forex conversion with retry mechanism
+        let currentRate = null;
+
+        async function fetchWithRetry(url, retries = CONFIG.MAX_RETRIES) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    return await response.json();
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(r => setTimeout(r, CONFIG.RETRY_DELAY * Math.pow(2, i)));
+                }
+            }
+        }
+
+        // Network status handling
+        function updateOfflineStatus() {
+            CONFIG.OFFLINE_MODE = !navigator.onLine;
+            const rateElement = document.getElementById('exchange-rate');
+            if (CONFIG.OFFLINE_MODE) {
+                rateElement.classList.add('offline');
+            } else {
+                rateElement.classList.remove('offline');
+                initializeConverter(); // Try to get fresh rates when back online
+            }
+        }
+
+        window.addEventListener('online', updateOfflineStatus);
+        window.addEventListener('offline', updateOfflineStatus);
+
+        async function fetchExchangeRate() {
+            try {
+                // First check if we're offline
+                if (!navigator.onLine) {
+                    CONFIG.OFFLINE_MODE = true;
+                    const cachedRate = getCachedRate();
+                    return cachedRate || CONFIG.FALLBACK_RATE;
+                }
+
+                // If online, try cached rate first
+                const cachedRate = getCachedRate();
+                if (cachedRate) {
+                    CONFIG.OFFLINE_MODE = false;
+                    return cachedRate;
+                }
+
+                // If no cache, fetch from API
+                const data = await fetchWithRetry(
+                    `${CONFIG.API_URL}?t=${Date.now()}`
+                );
+                
+                if (data && data.sgd && data.sgd.gbp) {
+                    CONFIG.OFFLINE_MODE = false;
+                    setCachedRate(data.sgd.gbp);
+                    return data.sgd.gbp;
+                }
+                throw new Error('Invalid API response format');
+            } catch (error) {
+                console.error('Exchange rate fetch failed:', error);
+                CONFIG.OFFLINE_MODE = true;
+                return getCachedRate() || CONFIG.FALLBACK_RATE;
+            }
+        }
+
+        function updateRateDisplay(rate) {
+            const rateElement = document.getElementById('exchange-rate');
+            const inverseRateElement = document.getElementById('exchange-rate-inverse');
+            const status = CONFIG.OFFLINE_MODE ? ' (Offline Mode)' : '';
+            
+            rateElement.textContent = `1 SGD = ${rate.toFixed(5)} GBP${status}`;
+            inverseRateElement.textContent = `1 GBP = ${(1/rate).toFixed(5)} SGD${status}`;
+            
+            rateElement.classList.remove('loading');
+            inverseRateElement.classList.remove('loading');
+            
+            if (CONFIG.OFFLINE_MODE) {
+                rateElement.classList.add('offline');
+                inverseRateElement.classList.add('offline');
+            } else {
+                rateElement.classList.remove('offline');
+                inverseRateElement.classList.remove('offline');
+            }
+        }
+
+        // Conversion functions
+        function convertSgdToGbp(sgd) {
+            return sgd * currentRate;
+        }
+
+        function convertGbpToSgd(gbp) {
+            return gbp / currentRate;
+        }
+
+        // Initialize converter with auto-refresh
+        async function initializeConverter() {
+            try {
+                const sgdInput = document.getElementById('sgd');
+                const gbpInput = document.getElementById('gbp');
+                const rateElement = document.getElementById('exchange-rate');
+                
+                if (!sgdInput || !gbpInput || !rateElement) {
+                    throw new Error('Required elements not found');
+                }
+
+                // Disable inputs until we have a rate
+                sgdInput.disabled = true;
+                gbpInput.disabled = true;
+                rateElement.classList.add('loading');
+                
+                // Get initial rate
+                const rate = await fetchExchangeRate();
+                if (!rate) {
+                    throw new Error('Failed to get exchange rate');
+                }
+
+                // Update the current rate and display
+                currentRate = rate;
+                updateRateDisplay(rate);
+                
+                // Enable inputs
+                sgdInput.disabled = false;
+                gbpInput.disabled = false;
+
+                return true;
+            } catch (error) {
+                console.error('Error initializing converter:', error);
+                const rateElement = document.getElementById('exchange-rate');
+                if (rateElement) {
+                    rateElement.textContent = 'Error loading rates. Please refresh the page.';
+                    rateElement.classList.remove('loading');
+                    rateElement.classList.add('offline');
+                }
+                return false;
+            }
+        }
+
+        // Initialize everything immediately
+        (async () => {
+            try {
+                // Start clock immediately and update every second
+                updateClocks();
+                setInterval(updateClocks, 1000);
+
+                // Initialize converter with network check
+                await initializeConverter();
+
+                // Set up periodic updates for rates
+                setInterval(async () => {
+                    if (navigator.onLine) {
+                        await initializeConverter();
+                    }
+                }, CONFIG.REFRESH_INTERVAL);
+
+            } catch (error) {
+                console.error('Application initialization failed:', error);
+            }
+        })();
+
+        // Input handlers with validation
+        document.getElementById('sgd').addEventListener('input', (e) => {
+            if (!currentRate) return;
+            const isValid = validateAmount(e.target.value, e.target);
+            if (!isValid) {
+                document.getElementById('gbp').value = '';
+                return;
+            }
+            document.getElementById('gbp').value =
+                convertSgdToGbp(parseFloat(e.target.value)).toFixed(4);
+        });
+
+        document.getElementById('gbp').addEventListener('input', (e) => {
+            if (!currentRate) return;
+            const isValid = validateAmount(e.target.value, e.target);
+            if (!isValid) {
+                document.getElementById('sgd').value = '';
+                return;
+            }
+            document.getElementById('sgd').value =
+                convertGbpToSgd(parseFloat(e.target.value)).toFixed(4);
+        });
+
+    </script>
+</body>
+</html>
