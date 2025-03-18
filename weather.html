@@ -87,6 +87,97 @@
             width: 100%;
         }
 
+        /* Weather Icons */
+        .weather-icon {
+            width: 100px;
+            height: 100px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .weather-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Sun */
+        .sun {
+            fill: #ffd700;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+            animation: rotate 24s linear infinite;
+        }
+
+        /* Cloud */
+        .cloud {
+            fill: #e1e1e1;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Rain */
+        .rain-drop {
+            fill: #00a8ff;
+            animation: rain 1.5s linear infinite;
+        }
+
+        .rain-drop:nth-child(2) { animation-delay: 0.5s; }
+        .rain-drop:nth-child(3) { animation-delay: 1s; }
+
+        /* Snow */
+        .snow-flake {
+            fill: #fff;
+            animation: snow 3s linear infinite;
+        }
+
+        .snow-flake:nth-child(2) { animation-delay: 1s; }
+        .snow-flake:nth-child(3) { animation-delay: 2s; }
+
+        /* Thunder */
+        .lightning {
+            fill: #ffd700;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            animation: flash 2s ease-in-out infinite;
+        }
+
+        /* Mist */
+        .mist {
+            fill: #b0b0b0;
+            animation: mist 3s ease-in-out infinite;
+        }
+
+        /* Animations */
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes rain {
+            0% { transform: translateY(-10px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(10px); opacity: 0; }
+        }
+
+        @keyframes snow {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(10px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes flash {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes mist {
+            0%, 100% { opacity: 0.5; transform: translateX(-5px); }
+            50% { opacity: 0.8; transform: translateX(5px); }
+        }
+
         .current-weather {
             text-align: center;
             margin-bottom: 20px;
@@ -221,15 +312,74 @@
 
     <div class="menu-backdrop"></div>
 
+    <!-- Weather Icons SVG Definitions -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <!-- Sun -->
+        <symbol id="icon-sun" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="20" class="sun"/>
+            <g class="sun-rays">
+                <line x1="50" y1="25" x2="50" y2="10" stroke="#ffd700" stroke-width="4"/>
+                <line x1="50" y1="75" x2="50" y2="90" stroke="#ffd700" stroke-width="4"/>
+                <line x1="25" y1="50" x2="10" y2="50" stroke="#ffd700" stroke-width="4"/>
+                <line x1="75" y1="50" x2="90" y2="50" stroke="#ffd700" stroke-width="4"/>
+                <line x1="32" y1="32" x2="22" y2="22" stroke="#ffd700" stroke-width="4"/>
+                <line x1="68" y1="68" x2="78" y2="78" stroke="#ffd700" stroke-width="4"/>
+                <line x1="32" y1="68" x2="22" y2="78" stroke="#ffd700" stroke-width="4"/>
+                <line x1="68" y1="32" x2="78" y2="22" stroke="#ffd700" stroke-width="4"/>
+            </g>
+        </symbol>
+        
+        <!-- Cloud -->
+        <symbol id="icon-cloud" viewBox="0 0 100 100">
+            <path d="M25,60 Q0,60 0,40 Q0,20 20,20 Q20,0 40,0 Q60,0 60,20 Q80,20 80,40 Q80,60 60,60 Z" class="cloud"/>
+        </symbol>
+
+        <!-- Rain -->
+        <symbol id="icon-rain" viewBox="0 0 100 100">
+            <use href="#icon-cloud" x="0" y="0"/>
+            <g class="rain-drops">
+                <path d="M30,70 L25,85" class="rain-drop" stroke="#00a8ff" stroke-width="3"/>
+                <path d="M50,70 L45,85" class="rain-drop" stroke="#00a8ff" stroke-width="3"/>
+                <path d="M70,70 L65,85" class="rain-drop" stroke="#00a8ff" stroke-width="3"/>
+            </g>
+        </symbol>
+
+        <!-- Snow -->
+        <symbol id="icon-snow" viewBox="0 0 100 100">
+            <use href="#icon-cloud" x="0" y="0"/>
+            <g class="snow-flakes">
+                <circle cx="30" cy="75" r="3" class="snow-flake"/>
+                <circle cx="50" cy="75" r="3" class="snow-flake"/>
+                <circle cx="70" cy="75" r="3" class="snow-flake"/>
+            </g>
+        </symbol>
+
+        <!-- Thunder -->
+        <symbol id="icon-thunder" viewBox="0 0 100 100">
+            <use href="#icon-cloud" x="0" y="0"/>
+            <path d="M45,45 L55,60 L45,60 L55,75" class="lightning" stroke="#ffd700" stroke-width="3"/>
+        </symbol>
+
+        <!-- Mist -->
+        <symbol id="icon-mist" viewBox="0 0 100 100">
+            <g class="mist">
+                <rect x="10" y="30" width="80" height="5" rx="2.5"/>
+                <rect x="15" y="45" width="70" height="5" rx="2.5"/>
+                <rect x="20" y="60" width="60" height="5" rx="2.5"/>
+            </g>
+        </symbol>
+    </svg>
+
     <div class="container">
         <div class="weather-grid">
             <div class="weather-card">
                 <h2>London Weather</h2>
                 <div class="current-weather loading">
                     <div class="temperature">--°C</div>
-                    <div class="condition">Loading...</div>
-                </div>
-                <div class="forecast">
+                   <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
+                   <div class="condition">Loading...</div>
+               </div>
+               <div class="forecast">
                     <h3>12-Hour Forecast</h3>
                     <div id="london-12h-forecast" class="loading">Loading forecast data...</div>
                 </div>
@@ -243,6 +393,7 @@
                 <h2>Singapore Weather</h2>
                 <div class="current-weather loading">
                     <div class="temperature">--°C</div>
+                    <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
                     <div class="condition">Loading...</div>
                 </div>
                 <div class="forecast">
@@ -371,6 +522,30 @@
             ).join(' ');
         }
 
+        // Get weather icon based on condition code
+        function getWeatherIcon(weatherCode) {
+            // Clear sky
+            if (weatherCode === 800) return 'sun';
+            
+            // Clouds
+            if (weatherCode >= 801 && weatherCode <= 804) return 'cloud';
+            
+            // Rain and drizzle
+            if ((weatherCode >= 300 && weatherCode <= 321) ||
+                (weatherCode >= 500 && weatherCode <= 531)) return 'rain';
+            
+            // Snow
+            if (weatherCode >= 600 && weatherCode <= 622) return 'snow';
+            
+            // Thunderstorm
+            if (weatherCode >= 200 && weatherCode <= 232) return 'thunder';
+            
+            // Mist, fog, etc
+            if (weatherCode >= 701 && weatherCode <= 781) return 'mist';
+            
+            return 'cloud'; // Default icon
+        }
+
         // Centralized weather display function
         function updateCurrentWeather(cityName, data) {
             const card = Array.from(document.querySelectorAll('.weather-card'))
@@ -383,11 +558,22 @@
             const elements = {
                 temp: card.querySelector('.temperature'),
                 condition: card.querySelector('.condition'),
-                container: card.querySelector('.current-weather')
+                container: card.querySelector('.current-weather'),
+                icon: card.querySelector('.weather-icon')
             };
 
+            // Update temperature and condition
             elements.temp.textContent = `${Math.round(data.main.temp)}°C`;
             elements.condition.textContent = capitalizeWords(data.weather[0].description);
+
+            // Update weather icon
+            const iconType = getWeatherIcon(data.weather[0].id);
+            elements.icon.innerHTML = `
+                <svg viewBox="0 0 100 100">
+                    <use href="#icon-${iconType}"/>
+                </svg>
+            `;
+            
             elements.container.classList.remove('loading');
         }
 
