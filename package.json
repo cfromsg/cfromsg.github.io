@@ -1,0 +1,11 @@
+{
+  "name": "weather-app-root",
+  "private": true,
+  "scripts": {
+    "preinstall": "cd server && npm install",
+    "start": "cd server && npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
