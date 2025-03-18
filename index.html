@@ -231,7 +231,18 @@
            margin-top: 5px;
        }
 
-       /* Rates container styles */
+        /* Remove spin buttons from number inputs */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        /* Rates container styles */
        .rates-container {
            display: flex;
            flex-direction: column;
