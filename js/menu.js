@@ -66,4 +66,17 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.setAttribute('aria-controls', 'menu-overlay');
     menuOverlay.setAttribute('aria-hidden', 'true');
     menuOverlay.setAttribute('role', 'navigation');
+
+    // Set active menu item based on current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const menuItems = menuOverlay.querySelectorAll('a');
+    menuItems.forEach(item => {
+        // Remove any existing active class
+        item.classList.remove('active');
+        // Only add active class if the href exactly matches the current page
+        const href = item.getAttribute('href');
+        if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+            item.classList.add('active');
+        }
+    });
 });

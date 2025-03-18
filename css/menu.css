@@ -75,7 +75,12 @@
 }
 
 .menu-overlay li {
-    margin-bottom: 15px;
+    margin: 0;
+    padding: 0 15px;
+}
+
+.menu-overlay li + li {
+    margin-top: 15px;
 }
 
 .menu-overlay a {
@@ -83,15 +88,21 @@
     text-decoration: none;
     font-size: 1.2rem;
     display: block;
-    padding: 12px 15px;
+    padding: 12px;
     border-radius: var(--border-radius);
     transition: all 0.3s;
     background: rgba(255, 255, 255, 0.05);
+    margin: 0;
 }
 
 .menu-overlay a:hover {
     background: var(--accent-primary);
     transform: translateX(5px);
+}
+
+.menu-overlay a.active {
+    background: var(--accent-primary);
+    color: #ffffff;
 }
 
 /* Backdrop */
@@ -118,8 +129,8 @@
 
 @media (max-width: 768px) {
     .menu-overlay {
-        width: 100%;
-        left: -100%;
+        width: 280px;
+        left: -280px;
         padding: 80px 20px 20px;
     }
 
