@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://cdn.jsdelivr.net;">
     <title>SG/UK Forex & Time</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/menu.css">
     <style>
         :root {
             --bg-primary: #121212;
@@ -50,12 +51,12 @@
         .clock-container {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 40px;
-            gap: 40px;
+            margin-bottom: 20px;
+            gap: 20px;
         }
         
         .clock-container {
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
         
         .clock {
@@ -148,7 +149,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             background: var(--input-bg);
             color: var(--text-primary);
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             width: 100%;
             transition: var(--transition);
             outline: none;
@@ -251,6 +252,21 @@
     </style>
 </head>
 <body>
+    <button class="hamburger-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="menu-overlay" id="menu-overlay" role="navigation">
+        <ul>
+            <li><a href="index.html">London Helper</a></li>
+            <li><a href="weather.html">Weather</a></li>
+        </ul>
+    </nav>
+
+    <div class="menu-backdrop"></div>
+
     <div class="container">
         <div class="clock-container">
             <div class="clock">
@@ -564,5 +580,6 @@
         });
 
     </script>
+    <script src="js/menu.js"></script>
 </body>
 </html>
