@@ -1,0 +1,40 @@
+/* ...existing code... */
+
+/* Weather elements - removing animations */
+.weather-element {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.rain-container {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.snow-container {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.thunderstorm-container {
+  background-color: rgba(38, 38, 38, 0.2);
+}
+
+.clear-container {
+  background-color: rgba(255, 236, 173, 0.1);
+}
+
+.clouds-container {
+  background-color: rgba(200, 200, 200, 0.2);
+}
+
+.mist-container {
+  background-color: rgba(230, 230, 230, 0.3);
+}
+
+/* Remove all @keyframes definitions for animations */
+
+/* ...existing code... */

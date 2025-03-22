@@ -48,6 +48,7 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: visible;
         }
+        
         .weather-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -65,7 +66,6 @@
             padding: 24px;
             position: relative;
             overflow: visible;
-            transition: var(--transition);
             border: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
@@ -94,7 +94,6 @@
             width: 100%;
         }
 
-        /* Weather Icons */
         .weather-icon {
             width: 100px;
             height: 100px;
@@ -107,115 +106,52 @@
             height: 100%;
         }
 
-        /* Sun */
+        /* Weather Elements */
         .sun {
-            -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
         }
+
         .sun circle {
             fill: #ffd700;
-            -webkit-filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
             filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
-        }
-        .sun-rays {
-            -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-        }
-
-        @-webkit-keyframes rotate {
-            from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
-            to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
-        }
-
-        @keyframes rotate {
-            from { -webkit-transform: rotate(0deg); transform: rotate(0deg); }
-            to { -webkit-transform: rotate(360deg); transform: rotate(360deg); }
-        }
-
-        /* Cloud */
-        .weather-icon {
-            width: 100px;
-            height: 120px;
-            margin: 10px 0;
-            position: relative;
-            padding: 10px;
-            overflow: visible;
-            z-index: 2;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
         }
 
         .cloud {
             fill: #e1e1e1;
-            -webkit-filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
             filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
-            -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 2;
         }
 
-        /* Rain */
         .rain-drop {
             fill: #00a8ff;
-            -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
             position: absolute;
-            opacity: 0;
         }
 
-        /* Snow */
         .snow-flake {
             fill: #fff;
-            -webkit-transform-origin: 50% 50%;
-            transform-origin: 50% 50%;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
             position: absolute;
-            opacity: 0;
         }
 
-        /* Thunder */
         .lightning {
             fill: #ffd700;
-            -webkit-filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
             filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
             position: absolute;
             opacity: 0.3;
         }
 
-        /* Mist */
         .mist {
             fill: #b0b0b0;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
             position: absolute;
             opacity: 0.5;
         }
-
 
         .current-weather {
             text-align: center;
@@ -281,7 +217,6 @@
             padding: 12px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
-            transition: var(--transition);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -290,11 +225,6 @@
             width: 100%;
             box-sizing: border-box;
             min-width: 0;
-        }
-
-        .forecast-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
         }
 
         .forecast-date {
@@ -325,37 +255,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-
-        .loading {
-            -webkit-animation: pulse 1.5s infinite;
-            animation: pulse 1.5s infinite;
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-perspective: 1000px;
-            perspective: 1000px;
-            width: 100%;
-        }
-
-        #london-12h-forecast,
-        #london-7d-forecast,
-        #singapore-12h-forecast,
-        #singapore-7d-forecast {
-            width: 100%;
-        }
-
-        @-webkit-keyframes pulse {
-            0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-            50% { opacity: 0.5; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-            100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-            50% { opacity: 0.5; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
-            100% { opacity: 1; -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
         }
 
         /* Offline state styles */
@@ -389,7 +288,6 @@
             content: '📡 Using Cached Data';
         }
 
-
         @media (max-width: 768px) {
             .weather-grid {
                 grid-template-columns: 1fr;
@@ -398,77 +296,6 @@
             .container {
                 padding: 25px;
                 margin: 10px;
-            }
-        }
-
-        /* Debug Panel */
-        .debug-panel {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: flex-start;
-            gap: 20px;
-            z-index: 1000;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: calc(20px + env(safe-area-inset-bottom));
-            white-space: nowrap;
-        }
-
-        .debug-btn {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            font-size: 0.9rem;
-            min-width: 100px;
-            flex-shrink: 0;
-        }
-
-        .debug-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .debug-btn:active {
-            transform: scale(0.95);
-        }
-
-        .debug-btn.active {
-            background: var(--accent-primary);
-            border-color: var(--accent-primary);
-        }
-
-        .debug-preview {
-            width: 60px;
-            height: 60px;
-            margin: 0 20px;
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 768px) {
-            .debug-btn {
-                padding: 14px 20px;
-                font-size: 1rem;
-            }
-
-            .debug-panel {
-                padding: 15px;
-                gap: 15px;
-            }
-
-            .debug-preview {
-                width: 50px;
-                height: 50px;
-                margin: 0 15px;
             }
         }
     </style>
@@ -553,26 +380,26 @@
         <div class="weather-grid">
             <div class="weather-card">
                 <h2>London Weather</h2>
-                <div class="current-weather loading">
+                <div class="current-weather">
                     <div class="temperature">--°C</div>
                     <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
                     <div class="condition">Loading...</div>
                     <div class="temp-range">--</div>
                     <div class="last-updated" style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 8px;">Last updated: --</div>
-               </div>
-               <div class="forecast">
+                </div>
+                <div class="forecast">
                     <h3>12-Hour Forecast</h3>
-                    <div id="london-12h-forecast" class="loading">Loading forecast data...</div>
+                    <div id="london-12h-forecast">Loading forecast data...</div>
                 </div>
                 <div class="forecast">
                     <h3>7-Day Forecast</h3>
-                    <div id="london-7d-forecast" class="loading">Loading forecast data...</div>
+                    <div id="london-7d-forecast">Loading forecast data...</div>
                 </div>
             </div>
             
             <div class="weather-card">
                 <h2>Singapore Weather</h2>
-                <div class="current-weather loading">
+                <div class="current-weather">
                     <div class="temperature">--°C</div>
                     <div class="weather-icon"><!-- Weather icon will be inserted here --></div>
                     <div class="condition">Loading...</div>
@@ -581,793 +408,14 @@
                 </div>
                 <div class="forecast">
                     <h3>12-Hour Forecast</h3>
-                    <div id="singapore-12h-forecast" class="loading">Loading forecast data...</div>
+                    <div id="singapore-12h-forecast">Loading forecast data...</div>
                 </div>
                 <div class="forecast">
                     <h3>7-Day Forecast</h3>
-                    <div id="singapore-7d-forecast" class="loading">Loading forecast data...</div>
+                    <div id="singapore-7d-forecast">Loading forecast data...</div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="js/menu.js"></script>
-    <script>
-        // Weather configuration
-        const CONFIG = {
-            CITIES: {
-                LONDON: {
-                    name: 'London,UK',
-                    lat: 51.5027,
-                    lon: -0.1884,
-                    fallback: {
-                        current: {
-                            main: { temp: 15, temp_min: 13, temp_max: 17 },
-                            weather: [{ id: 801, description: 'partly cloudy' }]
-                        },
-                        forecast: {
-                            list: [
-                                { dt: Date.now()/1000, main: { temp: 15 }, weather: [{ description: 'partly cloudy' }] },
-                                { dt: Date.now()/1000 + 3600*3, main: { temp: 14 }, weather: [{ description: 'cloudy' }] },
-                                { dt: Date.now()/1000 + 3600*6, main: { temp: 13 }, weather: [{ description: 'light rain' }] },
-                                { dt: Date.now()/1000 + 3600*9, main: { temp: 12 }, weather: [{ description: 'cloudy' }] }
-                            ]
-                        }
-                    }
-                },
-                SINGAPORE: {
-                    name: 'Singapore,SG',
-                    lat: 1.2933,
-                    lon: 103.8271,
-                    fallback: {
-                        current: {
-                            main: { temp: 28, temp_min: 26, temp_max: 31 },
-                            weather: [{ id: 500, description: 'light rain' }]
-                        },
-                        forecast: {
-                            list: [
-                                { dt: Date.now()/1000, main: { temp: 28 }, weather: [{ description: 'light rain' }] },
-                                { dt: Date.now()/1000 + 3600*3, main: { temp: 29 }, weather: [{ description: 'partly cloudy' }] },
-                                { dt: Date.now()/1000 + 3600*6, main: { temp: 30 }, weather: [{ description: 'mostly sunny' }] },
-                                { dt: Date.now()/1000 + 3600*9, main: { temp: 27 }, weather: [{ description: 'scattered thunderstorms' }] }
-                            ]
-                        }
-                    }
-                }
-            },
-            REFRESH_INTERVAL: 1800000, // 30 minutes
-            CACHE_DURATION: 3600000 * 6, // 6 hours cache duration
-            OFFLINE_MODE: false,
-            MAX_RETRIES: 3,
-            RETRY_DELAY: 1000,
-            API_BASE_URL: location.hostname === 'localhost' || location.hostname === '127.0.0.1'
-                ? 'http://localhost:3000/api'
-                : 'https://weather-proxy-kdl8.onrender.com/api'
-        };
-
-        // Error display function
-        function showError(cityName, error) {
-            const card = Array.from(document.querySelectorAll('.weather-card'))
-                .find(card => {
-                    const heading = card.querySelector('h2');
-                    return heading && heading.textContent.includes(cityName);
-                });
-            if (!card) return;
-
-            const elements = {
-                temp: card.querySelector('.temperature'),
-                condition: card.querySelector('.condition'),
-                icon: card.querySelector('.weather-icon'),
-                forecasts: card.querySelectorAll('.forecast'),
-                currentWeather: card.querySelector('.current-weather')
-            };
-
-            if (elements.temp) elements.temp.textContent = '--°C';
-            if (elements.condition) elements.condition.textContent = CONFIG.OFFLINE_MODE ? 'Using offline data' : 'Unable to load weather data';
-            if (elements.icon) elements.icon.innerHTML = `
-                <svg viewBox="0 0 100 120">
-                    <use href="#icon-cloud"/>
-                </svg>
-            `;
-            
-            elements.forecasts.forEach(elem => {
-                const forecastDiv = elem.querySelector('div');
-                if (forecastDiv) {
-                    forecastDiv.classList.remove('loading');
-                    forecastDiv.textContent = CONFIG.OFFLINE_MODE ? 'Loading cached forecast...' : 'Weather data unavailable';
-                }
-                if (CONFIG.OFFLINE_MODE) {
-                    elem.classList.add('offline');
-                }
-            });
-
-            if (elements.currentWeather) {
-                elements.currentWeather.classList.remove('loading');
-                if (CONFIG.OFFLINE_MODE) {
-                    elements.currentWeather.classList.add('offline');
-                }
-            }
-
-            console.error(`Weather data error for ${cityName}:`, error);
-        }
-
-        // Network status handling
-        function updateOfflineStatus() {
-            CONFIG.OFFLINE_MODE = !navigator.onLine;
-            document.querySelectorAll('.weather-card').forEach(card => {
-                const elements = card.querySelectorAll('.current-weather, .forecast');
-                if (CONFIG.OFFLINE_MODE) {
-                    elements.forEach(el => el.classList.add('offline'));
-                } else {
-                    elements.forEach(el => el.classList.remove('offline'));
-                    initializeWeather(); // Try to get fresh data when back online
-                }
-            });
-        }
-
-        window.addEventListener('online', updateOfflineStatus);
-        window.addEventListener('offline', updateOfflineStatus);
-
-        // Cache management with improved validation
-        function getCacheKey(cityName, type) {
-            return `weather_${cityName}_${type}`;
-        }
-
-        function getCachedData(key) {
-            try {
-                const cached = localStorage.getItem(key);
-                if (!cached) return null;
-
-                const { data, timestamp } = JSON.parse(cached);
-                if (Date.now() - timestamp > CONFIG.CACHE_DURATION) {
-                    localStorage.removeItem(key);
-                    return null;
-                }
-                return data;
-            } catch (error) {
-                console.error('Cache read error:', error);
-                localStorage.removeItem(key);
-                return null;
-            }
-        }
-
-        function setCachedData(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify({
-                    data,
-                    timestamp: Date.now()
-                }));
-            } catch (error) {
-                console.error('Cache write error:', error);
-            }
-        }
-
-        // Weather data fetching with retry mechanism and offline support
-        async function fetchWeatherData(city, type = 'current') {
-            const cacheKey = getCacheKey(city.name, type);
-            
-            // First check if we're offline
-            if (!navigator.onLine) {
-                CONFIG.OFFLINE_MODE = true;
-                const cachedData = getCachedData(cacheKey);
-                return cachedData || city.fallback[type];
-            }
-
-            // If online, try cached data first
-            const cachedData = getCachedData(cacheKey);
-            if (cachedData) {
-                CONFIG.OFFLINE_MODE = false;
-                return cachedData;
-            }
-
-            // If no cache, try API with retries
-            for (let i = 0; i < CONFIG.MAX_RETRIES; i++) {
-                try {
-                    const endpoint = type === 'current' ? 'weather' : 'forecast';
-                    const cityName = encodeURIComponent(city.name.split(',')[0]);
-                    const params = new URLSearchParams({
-                        lat: city.lat.toString(),
-                        lon: city.lon.toString()
-                    });
-
-                    const response = await fetch(
-                        `${CONFIG.API_BASE_URL}/${endpoint}/${cityName}?${params.toString()}`,
-                        {
-                            method: 'GET',
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        }
-                    );
-
-                    if (!response.ok) {
-                        throw new Error(`Weather API error: ${response.status}`);
-                    }
-
-                    const data = await response.json();
-                    if (!data) throw new Error('No data received from weather API');
-
-                    CONFIG.OFFLINE_MODE = false;
-                    setCachedData(cacheKey, data);
-                    return data;
-
-                } catch (error) {
-                    if (i === CONFIG.MAX_RETRIES - 1) {
-                        console.error(`Error fetching weather data for ${city.name}:`, error);
-                        CONFIG.OFFLINE_MODE = true;
-                        // Try cached data first, then fallback
-                        return getCachedData(cacheKey) || city.fallback[type];
-                    }
-                    await new Promise(r => setTimeout(r, CONFIG.RETRY_DELAY * Math.pow(2, i)));
-                }
-            }
-
-            return city.fallback[type]; // Final fallback
-        }
-
-        // Weather display functions
-        // Utility function to capitalize each word
-        function capitalizeWords(str) {
-            return str.split(' ').map(word =>
-                word.charAt(0).toUpperCase() + word.slice(1)
-            ).join(' ');
-        }
-
-        // Get weather icon based on condition code
-        function getWeatherIcon(weatherCode) {
-            // Clear sky
-            if (weatherCode === 800) return 'sun';
-            
-            // Clouds
-            if (weatherCode >= 801 && weatherCode <= 804) return 'cloud';
-            
-            // Rain and drizzle
-            if ((weatherCode >= 300 && weatherCode <= 321) ||
-                (weatherCode >= 500 && weatherCode <= 531)) return 'rain';
-            
-            // Snow
-            if (weatherCode >= 600 && weatherCode <= 622) return 'snow';
-            
-            // Thunderstorm
-            if (weatherCode >= 200 && weatherCode <= 232) return 'thunder';
-            
-            // Mist, fog, etc
-            if (weatherCode >= 701 && weatherCode <= 781) return 'mist';
-            
-            return 'cloud'; // Default icon
-        }
-
-        // Centralized weather display function
-        function updateCurrentWeather(cityName, data) {
-            const card = Array.from(document.querySelectorAll('.weather-card'))
-                .find(card => {
-                    const heading = card.querySelector('h2');
-                    return heading && heading.textContent.includes(cityName);
-                });
-            if (!card) return;
-
-            const elements = {
-                temp: card.querySelector('.temperature'),
-                condition: card.querySelector('.condition'),
-                container: card.querySelector('.current-weather'),
-                icon: card.querySelector('.weather-icon'),
-                tempRange: card.querySelector('.temp-range'),
-                lastUpdated: card.querySelector('.last-updated')
-            };
-
-            // Get timezone based on city
-            const timezone = cityName.includes('London') ? 'Europe/London' : 'Asia/Singapore';
-            const timeOptions = {
-                timeZone: timezone,
-                hour12: true,
-                hour: 'numeric',
-                minute: 'numeric',
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            };
-
-            // Update temperature and condition
-            elements.temp.textContent = `${Math.round(data.main.temp)}°C`;
-            elements.condition.textContent = capitalizeWords(data.weather[0].description);
-            elements.tempRange.textContent = `H:${Math.round(data.main.temp_max)}°C L:${Math.round(data.main.temp_min)}°C`;
-
-            // Update last updated timestamp
-            const now = new Date();
-            elements.lastUpdated.textContent = `Last updated: ${now.toLocaleString('en-US', timeOptions)}`;
-
-            // Update weather icon
-            const iconType = getWeatherIcon(data.weather[0].id);
-            elements.icon.innerHTML = `
-                <svg viewBox="0 0 100 120">
-                    <use href="#icon-${iconType}"/>
-                </svg>
-            `;
-            
-            elements.container.classList.remove('loading');
-            if (CONFIG.OFFLINE_MODE) {
-                elements.container.classList.add('offline');
-            } else {
-                elements.container.classList.remove('offline');
-            }
-        }
-
-        function updateForecast(cityName, data, type) {
-            const forecastId = `${cityName.toLowerCase()}-${type}-forecast`;
-            const forecastElement = document.getElementById(forecastId);
-            if (!forecastElement) return;
-
-            // Get timezone based on city
-            const timezone = cityName.includes('London') ? 'Europe/London' : 'Asia/Singapore';
-            const options = {
-                timeZone: timezone,
-                hour12: true
-            };
-
-            let forecastItems;
-            if (type === '12h') {
-                // 12-hour forecast: Show next 4 entries (12 hours with 3-hour intervals)
-                forecastItems = data.list.slice(0, 4)
-                    .map(item => {
-                        const date = new Date(item.dt * 1000);
-                        const hour = date.toLocaleTimeString('en-US', { ...options, hour: 'numeric' });
-                        return `
-                            <div class="forecast-item">
-                                <div class="forecast-date">${hour}</div>
-                                <div class="forecast-temp">${Math.round(item.main.temp)}°C</div>
-                                <div class="forecast-condition">${capitalizeWords(item.weather[0].description)}</div>
-                            </div>
-                        `;
-                    });
-            } else {
-                // 7-day forecast: Group by day and take first entry of each day
-                const dailyForecasts = new Map();
-                data.list.forEach(item => {
-                    const date = new Date(item.dt * 1000);
-                    // Use timezone-aware date string as key
-                    const dayKey = date.toLocaleDateString('en-US', { ...options, year: 'numeric', month: '2-digit', day: '2-digit' });
-                    if (!dailyForecasts.has(dayKey)) {
-                        dailyForecasts.set(dayKey, item);
-                    }
-                });
-
-                forecastItems = Array.from(dailyForecasts.entries())
-                    .slice(0, 7)
-                    .map(([_, item]) => {
-                        const date = new Date(item.dt * 1000);
-                        const formattedDate = date.toLocaleDateString('en-US', {
-                            ...options,
-                            weekday: 'short',
-                            day: '2-digit',
-                            month: '2-digit'
-                        });
-                        return `
-                            <div class="forecast-item">
-                                <div class="forecast-date">${formattedDate}</div>
-                                <div class="forecast-temp">${Math.round(item.main.temp)}°C</div>
-                                <div class="forecast-condition">${capitalizeWords(item.weather[0].description)}</div>
-                            </div>
-                        `;
-                    });
-            }
-
-            forecastElement.innerHTML = `<div class="forecast-grid">${forecastItems.join('')}</div>`;
-            forecastElement.classList.remove('loading');
-        }
-
-        // Initialize weather data
-        async function initializeWeather() {
-            for (const [cityKey, city] of Object.entries(CONFIG.CITIES)) {
-                try {
-                    // Fetch current weather
-                    const currentWeather = await fetchWeatherData(city, 'current');
-                    if (currentWeather) {
-                        updateCurrentWeather(city.name.split(',')[0], currentWeather);
-                    }
-
-                    // Fetch forecast
-                    const forecast = await fetchWeatherData(city, 'forecast');
-                    if (forecast) {
-                        updateForecast(city.name.split(',')[0], forecast, '12h');
-                        updateForecast(city.name.split(',')[0], forecast, '7d');
-                    }
-                } catch (error) {
-                    console.error(`Failed to initialize weather data for ${city.name}:`, error);
-                    showError(city.name.split(',')[0], error);
-                }
-            }
-        }
-
-        // Initialize and set up refresh interval
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeWeather();
-            setInterval(initializeWeather, CONFIG.REFRESH_INTERVAL);
-        });
-
-        // Debug panel functionality
-        function initDebugPanel() {
-            const weatherTypes = [
-                { id: 800, name: 'Clear Sky' },
-                { id: 801, name: 'Cloudy' },
-                { id: 500, name: 'Rain' },
-                { id: 600, name: 'Snow' },
-                { id: 200, name: 'Thunder' },
-                { id: 701, name: 'Mist' }
-            ];
-
-            // Create debug panel
-            const panel = document.createElement('div');
-            panel.className = 'debug-panel';
-            
-            const previewArea = document.createElement('div');
-            previewArea.className = 'weather-icon debug-preview';
-            panel.appendChild(previewArea);
-
-            // Add buttons for each weather type
-            weatherTypes.forEach(type => {
-                const button = document.createElement('button');
-                button.className = 'debug-btn';
-                button.textContent = type.name;
-                button.onclick = () => {
-                    document.querySelectorAll('.debug-btn').forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    const iconType = getWeatherIcon(type.id);
-                    previewArea.innerHTML = `
-                        <svg viewBox="0 0 100 100">
-                            <use href="#icon-${iconType}"/>
-                        </svg>
-                    `;
-                };
-                panel.appendChild(button);
-            });
-
-            document.body.appendChild(panel);
-            
-            // Show initial icon (Clear Sky)
-            const iconType = getWeatherIcon(800);
-            previewArea.innerHTML = `
-                <svg viewBox="0 0 100 100">
-                    <use href="#icon-${iconType}"/>
-                </svg>
-            `;
-        }
-
-        // Initialize debug panel
-        document.addEventListener('DOMContentLoaded', () => {
-            initDebugPanel();
-            initWeatherAnimations();
-        });
-
-        // Weather Animations
-
-        function initWeatherAnimations() {
-        let isAnimating = false;
-        let animationFrame = null;
-        
-        // Animation states
-        const state = {
-            sunRotation: 0,
-            cloudY: 0,
-            rainDrops: [
-            { y: -10, opacity: 0 },
-            { y: -10, opacity: 0 },
-            { y: -10, opacity: 0 }
-            ],
-            snowFlakes: [
-            { y: -10, rotation: 0, opacity: 0 },
-            { y: -10, rotation: 120, opacity: 0 },
-            { y: -10, rotation: 240, opacity: 0 }
-            ],
-            flash: { opacity: 0.3 },
-            mist: { x: -5, opacity: 0.5 }
-        };
-
-        // Helper function to apply styles safely
-        function applyStyles(element, styles) {
-            for (const prop in styles) {
-            try {
-                element.style[prop] = styles[prop];
-            } catch (e) {
-                console.warn(`Failed to set style ${prop}`, e);
-            }
-            }
-        }
-
-        function initializeElements() {
-            // Force hardware acceleration
-            const acceleratedCSS = {
-            '-webkit-backface-visibility': 'hidden',
-            'backface-visibility': 'hidden',
-            '-webkit-perspective': '1000',
-            'perspective': '1000',
-            'will-change': 'transform, opacity'
-            };
-            
-            document.querySelectorAll('.sun, .cloud, .rain-drop, .snow-flake, .lightning, .mist').forEach(el => {
-            applyStyles(el, acceleratedCSS);
-            });
-
-            document.querySelectorAll('.sun').forEach(sun => {
-            applyStyles(sun, {
-                '-webkit-transform': 'translate3d(0,0,0)',
-                'transform': 'translate3d(0,0,0)'
-            });
-            });
-            
-            document.querySelectorAll('.cloud').forEach(cloud => {
-            applyStyles(cloud, {
-                '-webkit-transform': 'translate3d(0,0,0)',
-                'transform': 'translate3d(0,0,0)'
-            });
-            });
-            
-            document.querySelectorAll('.rain-drop').forEach(drop => {
-            applyStyles(drop, {
-                '-webkit-transform': 'translate3d(0,-10px,0)',
-                'transform': 'translate3d(0,-10px,0)',
-                'opacity': '0'
-            });
-            });
-            
-            document.querySelectorAll('.snow-flake').forEach(flake => {
-            applyStyles(flake, {
-                '-webkit-transform': 'translate3d(0,-10px,0)',
-                'transform': 'translate3d(0,-10px,0)',
-                'opacity': '0'
-            });
-            });
-            
-            document.querySelectorAll('.lightning').forEach(lightning => {
-            applyStyles(lightning, {
-                '-webkit-transform': 'translate3d(0,0,0)',
-                'transform': 'translate3d(0,0,0)',
-                'opacity': '0.3'
-            });
-            });
-            
-            document.querySelectorAll('.mist').forEach(mist => {
-            applyStyles(mist, {
-                '-webkit-transform': 'translate3d(-5px,0,0)',
-                'transform': 'translate3d(-5px,0,0)',
-                'opacity': '0.5'
-            });
-            });
-        }
-
-        function updateSun(timestamp) {
-            const suns = document.querySelectorAll('.sun');
-            suns.forEach(sun => {
-            state.sunRotation = (timestamp * 0.01) % 360;
-            const transform = `translate3d(0,0,0) rotate(${state.sunRotation}deg)`;
-            applyStyles(sun, {
-                '-webkit-transform': transform,
-                'transform': transform
-            });
-            });
-        }
-
-        function updateCloud(timestamp) {
-            const clouds = document.querySelectorAll('.cloud');
-            const amplitude = 3;
-            const frequency = 0.002;
-            clouds.forEach(cloud => {
-            state.cloudY = Math.sin(timestamp * frequency) * amplitude;
-            const transform = `translate3d(0,${state.cloudY}px,0)`;
-            applyStyles(cloud, {
-                '-webkit-transform': transform,
-                'transform': transform
-            });
-            });
-        }
-
-        function updateRain(timestamp) {
-            const rainGroups = document.querySelectorAll('.rain-drops');
-            rainGroups.forEach(group => {
-            const drops = group.querySelectorAll('.rain-drop');
-            drops.forEach((drop, index) => {
-                let dropState = state.rainDrops[index % state.rainDrops.length];
-                dropState.y += Math.min(2, (16 / (timestamp % 16 + 1)));
-                dropState.opacity = dropState.y > -5 && dropState.y < 15 ? 1 : 0;
-                if (dropState.y > 20) dropState.y = -10;
-                const transform = `translate3d(0,${dropState.y}px,0)`;
-                applyStyles(drop, {
-                '-webkit-transform': transform,
-                'transform': transform,
-                'opacity': String(dropState.opacity)
-                });
-            });
-            });
-        }
-
-        function updateSnow(timestamp) {
-            const snowGroups = document.querySelectorAll('.snow-flakes');
-            snowGroups.forEach(group => {
-            const flakes = group.querySelectorAll('.snow-flake');
-            flakes.forEach((flake, index) => {
-                let flakeState = state.snowFlakes[index % state.snowFlakes.length];
-                flakeState.y += Math.min(1, (8 / (timestamp % 8 + 1)));
-                flakeState.rotation = (timestamp * 0.05 + (index * 120)) % 360;
-                flakeState.opacity = flakeState.y > -5 && flakeState.y < 15 ? 1 : 0;
-                if (flakeState.y > 20) flakeState.y = -10;
-                const transform = `translate3d(0,${flakeState.y}px,0) rotate(${flakeState.rotation}deg)`;
-                applyStyles(flake, {
-                '-webkit-transform': transform,
-                'transform': transform,
-                'opacity': String(flakeState.opacity)
-                });
-            });
-            });
-        }
-
-        function updateFlash(timestamp) {
-            const lightnings = document.querySelectorAll('.lightning');
-            lightnings.forEach(lightning => {
-            state.flash.opacity = 0.3 + (Math.sin(timestamp * 0.002) * 0.7);
-            const transform = 'translate3d(0,0,0)';
-            applyStyles(lightning, {
-                '-webkit-transform': transform,
-                'transform': transform,
-                'opacity': String(state.flash.opacity)
-            });
-            });
-        }
-
-        function updateMist(timestamp) {
-            const mists = document.querySelectorAll('.mist');
-            mists.forEach(mist => {
-            state.mist.x = Math.sin(timestamp * 0.001) * 5;
-            state.mist.opacity = 0.5 + (Math.sin(timestamp * 0.001) * 0.3);
-            const transform = `translate3d(${state.mist.x}px,0,0)`;
-            applyStyles(mist, {
-                '-webkit-transform': transform,
-                'transform': transform,
-                'opacity': String(state.mist.opacity)
-            });
-            });
-        }
-
-        // Improved animation function
-        function startAnimation() {
-            if (isAnimating) return;
-            isAnimating = true;
-            
-            // Cancel any existing animation frame
-            if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
-            }
-            
-            // Perform initial update
-            const startTime = window.performance && window.performance.now ? 
-            window.performance.now() : Date.now();
-            
-            updateSun(startTime);
-            updateCloud(startTime);
-            updateRain(startTime);
-            updateSnow(startTime);
-            updateFlash(startTime);
-            updateMist(startTime);
-            
-            let lastTime = startTime;
-            const minFrameTime = 16; // ~60fps
-            
-            function animate() {
-            if (!isAnimating) return;
-            
-            // Use performance.now or fallback to Date.now
-            const now = window.performance && window.performance.now ? 
-                window.performance.now() : Date.now();
-            
-            const delta = now - lastTime;
-            
-            // Only update if enough time has passed (throttle for performance)
-            if (delta >= minFrameTime) {
-                updateSun(now);
-                updateCloud(now);
-                updateRain(now);
-                updateSnow(now);
-                updateFlash(now);
-                updateMist(now);
-                lastTime = now;
-            }
-            
-            // Store the animation frame ID so we can cancel it if needed
-            animationFrame = window.requestAnimationFrame(animate);
-            }
-            
-            // Start the animation loop
-            animationFrame = window.requestAnimationFrame(animate);
-            
-            // Debug log - verify animation is running
-            console.log("Animation started at: ", new Date().toLocaleTimeString());
-        }
-
-        function stopAnimation() {
-            isAnimating = false;
-            if (animationFrame) {
-            cancelAnimationFrame(animationFrame);
-            animationFrame = null;
-            }
-            console.log("Animation stopped at: ", new Date().toLocaleTimeString());
-        }
-
-        // Initialize elements
-        initializeElements();
-
-        // Handle iOS touch events (very important for iOS)
-        document.addEventListener('touchstart', () => {
-            startAnimation();
-        }, { passive: true });
-
-        // Start animation on page show
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-            stopAnimation();
-            }
-            // Slight delay to ensure DOM is ready
-            setTimeout(startAnimation, 100);
-        });
-
-        // Handle visibility changes
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-            stopAnimation();
-            } else {
-            // Slight delay when coming back to page
-            setTimeout(startAnimation, 100);
-            }
-        });
-
-        // Special iOS handling
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        
-        if (isIOS) {
-            // Handle orientation changes on iOS
-            window.addEventListener('orientationchange', () => {
-            stopAnimation();
-            // Longer delay after orientation change
-            setTimeout(startAnimation, 300);
-            });
-            
-            // Add additional iOS-specific trigger
-            window.addEventListener('resize', () => {
-            stopAnimation();
-            setTimeout(startAnimation, 200);
-            });
-            
-            // Force periodic animation check on iOS
-            setInterval(() => {
-            if (!document.hidden && !isAnimating) {
-                startAnimation();
-            }
-            }, 3000);
-        }
-
-        // Initial animation start (with delay to ensure DOM is ready)
-        setTimeout(startAnimation, 100);
-        
-        // Expose methods for debugging and manual control
-        return {
-            start: startAnimation,
-            stop: stopAnimation,
-            isRunning: () => isAnimating
-        };
-        }
-
-        // Make sure function is available globally and runs on load
-        if (typeof window !== 'undefined') {
-        window.initWeatherAnimations = initWeatherAnimations;
-        
-        // Auto-initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', () => {
-            window.weatherAnimator = initWeatherAnimations();
-            });
-        } else {
-            window.weatherAnimator = initWeatherAnimations();
-        }
-        }
-    
-    </script>
 </body>
 </html>
